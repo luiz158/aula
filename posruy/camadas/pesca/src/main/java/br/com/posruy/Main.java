@@ -1,30 +1,21 @@
 package br.com.posruy;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
 import br.com.posruy.domain.Produto;
+import br.com.posruy.persistence.ProdutoDAO;
 
 public class Main {
 
     public static void main(String[] args) {
 
-	EntityManagerFactory factory = Persistence.createEntityManagerFactory("banco1");
-
-	EntityManager em = factory.createEntityManager();
+	ProdutoDAO dao = new ProdutoDAO();
 
 	Produto produto = new Produto();
 	produto.setNome("xx");
 
-	em.getTransaction().begin();
-	em.persist(produto);
-	em.getTransaction().commit();
+	dao.inserir(produto);
 
-	Query query = em.createQuery("select x from Produto x");
-	query.getResultList();
-
-	System.out.println("xxxxxx");
+	for (Produto p : dao.obterTodos()) {
+	    System.out.println("id: " + p.getId());
+	}
     }
 }
