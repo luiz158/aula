@@ -6,6 +6,7 @@
 	<groupId>br.com.posruy.demo</groupId>
 	<artifactId>demo-core</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<!-- Dependência para a ersão mais recente do Hibernate -->
@@ -48,5 +49,4 @@
 			<url>http://repository.jboss.org/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
-
 </project>
