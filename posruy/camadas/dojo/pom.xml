@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.com.posruy.dojo</groupId>
-	<artifactId>webapp</artifactId>
+	<artifactId>posruy</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<!-- Dependência para a ersão mais recente do Hibernate -->
