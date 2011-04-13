@@ -8,6 +8,44 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+	<dependencies>
+		<!-- Dependência para a ersão mais recente do Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.6.3.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Banco de dados estilo "tamburete de dados" que não precisa de servidor -->
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.10</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Apenas para os casos de teste -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-easymock</artifactId>
+			<version>1.4.8</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<repositories>
 		<!-- Repositório do JBoss que contém a versão mais recente do Hibernate -->
 		<repository>
