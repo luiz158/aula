@@ -4,12 +4,19 @@ import br.com.posruy.demo.domain.Usuario;
 public class Main {
 
     public static void main(String[] args) {
+	Usuario usuario;
+	UsuarioRN rn = new UsuarioRN();
 
-	Usuario usuario = new Usuario();
+	usuario = new Usuario();
 	usuario.setNome("José");
 	usuario.setAnoNascimento(1993);
+	rn.inserir(usuario);
 
-	UsuarioRN rn = new UsuarioRN();
+	rn.excluir(usuario);
+
+	usuario = new Usuario();
+	usuario.setNome("José");
+	usuario.setAnoNascimento(1993);
 	rn.inserir(usuario);
 
 	for (Usuario u : rn.listar()) {

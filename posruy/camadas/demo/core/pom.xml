@@ -6,14 +6,17 @@
 	<groupId>br.com.posruy.demo</groupId>
 	<artifactId>demo-core</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	
+
 	<dependencies>
+		<!-- Dependência para a ersão mais recente do Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>3.6.3.Final</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- Banco de dados estilo "tamburete de dados" que não precisa de servidor -->
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
@@ -22,7 +25,23 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<!-- Define que o projeto utiliza o Java 6 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<repositories>
+		<!-- Repositório do JBoss que contém a versão mais recente do Hibernate -->
 		<repository>
 			<id>nexus.jboss.org</id>
 			<name>JBoss Maven Repository</name>

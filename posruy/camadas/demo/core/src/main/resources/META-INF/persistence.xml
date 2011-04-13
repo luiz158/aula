@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<persistence version="2.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
+	<!--
+		Configuração do banco de dados utilizando JPA2. Aqui atribuí o apelido
+		"banco1" para a conexão, que será utilizado pela fábrica de gerenciador de
+		entidades, o EntityManagerFactory.
+	-->
 	<persistence-unit name="banco1">
 		<properties>
+			<!-- Configurações genéricas utilizadas pelo JPA2 para identificar a conexão com o banco -->
 			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:database/banco1" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:target/database/banco1;shutdown=true" />
 			<property name="javax.persistence.jdbc.user" value="sa" />
 			<property name="javax.persistence.jdbc.password" value="" />
 
+			<!-- Informa ao Hibernate para atualizar o esquema do banco com base no mapeamento das entidades -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<!-- Pede ao Hibernate para exibir no console todas as queries executados por ele no banco de dados -->
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
 	</persistence-unit>
