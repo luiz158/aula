@@ -1,9 +1,12 @@
 package br.com.posruy.demo.business;
 
-import java.util.Calendar;
 import java.util.List;
 
 import br.com.posruy.demo.domain.Usuario;
+import br.com.posruy.demo.exception.EmailDuplicadoException;
+import br.com.posruy.demo.exception.InformacaoObrigatoriaException;
+import br.com.posruy.demo.exception.MenorDeIdadeException;
+import br.com.posruy.demo.exception.ValidacaoException;
 import br.com.posruy.demo.persistence.UsuarioDAO;
 
 /**
@@ -48,13 +51,29 @@ public class UsuarioRN {
      * 
      * @param usuario
      *            Usuário a ser inserido.
+     * @throws MenorDeIdadeException
      */
-    public void inserir(Usuario usuario) {
-	if (maiorIdade(usuario)) {
-	    getDAO().inserir(usuario);
-	} else {
-	    throw new RuntimeException("Vai crescer rapá!");
+    public void inserir(Usuario usuario) throws ValidacaoException {
+	if (!maiorIdade(usuario)) {
+	    throw new MenorDeIdadeException();
 	}
+
+	if (emailDuplicado(usuario)) {
+	    throw new EmailDuplicadoException(usuario.getEmail());
+	}
+
+	getDAO().inserir(usuario);
+    }
+
+    private boolean emailDuplicado(Usuario usuario) {
+	Usuario aux = obterPorEmail(usuario.getEmail());
+
+	boolean duplicado = false;
+	if (aux != null && aux.getId().equals(usuario.getId())) {
+	    duplicado = true;
+	}
+
+	return duplicado;
     }
 
     /**
@@ -65,8 +84,8 @@ public class UsuarioRN {
      * @return É de maior ou não é?
      */
     private boolean maiorIdade(Usuario usuario) {
-	int anoCorrente = Calendar.getInstance().get(Calendar.YEAR);
-	// int anoCorrente = 2011;
+	// int anoCorrente = Calendar.getInstance().get(Calendar.YEAR);
+	int anoCorrente = 2011;
 	int anoNascimento = usuario.getAnoNascimento();
 
 	return (anoCorrente - anoNascimento) >= 18;
@@ -75,11 +94,16 @@ public class UsuarioRN {
     /**
      * Simplesmente exclui um usuário.
      * 
-     * @param usuario
-     *            Usuário a ser excluído.
+     * @param id
+     *            Identificação do usuário a ser excluído.
+     * @throws InformacaoObrigatoriaException
      */
-    public void excluir(Usuario usuario) {
-	getDAO().excluir(usuario);
+    public void excluir(Long id) throws ValidacaoException {
+	if (id == null) {
+	    throw new InformacaoObrigatoriaException("Informe a identificação do usuário");
+	}
+
+	getDAO().excluir(id);
     }
 
     /**
@@ -91,4 +115,11 @@ public class UsuarioRN {
 	return getDAO().listar();
     }
 
+    public Usuario obter(Long id) {
+	return getDAO().obter(id);
+    }
+
+    public Usuario obterPorEmail(String email) {
+	return getDAO().obterPorEmail(email);
+    }
 }

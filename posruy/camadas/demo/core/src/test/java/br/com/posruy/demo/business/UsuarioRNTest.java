@@ -1,51 +1,44 @@
+package br.com.posruy.demo.business;
+
 import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
 import static org.junit.Assert.fail;
+import static org.powermock.reflect.Whitebox.setInternalState;
 
-import java.util.Calendar;
-
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 
 import br.com.posruy.demo.business.UsuarioRN;
 import br.com.posruy.demo.domain.Usuario;
+import br.com.posruy.demo.exception.MenorDeIdadeException;
+import br.com.posruy.demo.exception.ValidacaoException;
 import br.com.posruy.demo.persistence.UsuarioDAO;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Calendar.class)
 public class UsuarioRNTest {
 
     @Test
-    public void inserirUsuarioSemErro() {
-
+    public void inserirUsuarioSemErro() throws Exception {
 	UsuarioRN rn = new UsuarioRN();
+	UsuarioDAO dao = createMock(UsuarioDAO.class);
 
-	UsuarioDAO mock = createMock(UsuarioDAO.class);
-	mock.inserir(anyObject(Usuario.class));
+	dao.inserir(anyObject(Usuario.class));
 	expectLastCall();
-	Whitebox.setInternalState(rn, UsuarioDAO.class, mock);
-	expect(Calendar.getInstance().get(1)).andReturn(2016);
+	expect(dao.obter(null)).andReturn(null);
+	expect(dao.obterPorEmail(null)).andReturn(null);
+	setInternalState(rn, UsuarioDAO.class, dao);
 
-	replay(mock, Calendar.class);
+	replay(dao);
 
-	Usuario usuario;
-
-	usuario = new Usuario();
+	Usuario usuario = new Usuario();
 	usuario.setAnoNascimento(1900);
 
 	rn.inserir(usuario);
     }
 
-    @Ignore
     @Test
-    public void tentarInserirUsuarioMenorDeIdade() {
+    public void tentarInserirUsuarioMenorDeIdade() throws ValidacaoException {
 	UsuarioRN rn = new UsuarioRN();
 	Usuario usuario;
 
@@ -56,7 +49,7 @@ public class UsuarioRNTest {
 	    rn.inserir(usuario);
 	    fail("Não era para conseguir inserir");
 
-	} catch (Exception e) {
+	} catch (MenorDeIdadeException e) {
 	    // Tudo Ok, era para acontecer isso mesmo.
 	}
     }

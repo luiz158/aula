@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -68,22 +69,50 @@ public class UsuarioDAO {
      * Poderia ser excluído utilizando o método "remove" do
      * {@link EntityManager}, mas utilizei o query para exemplificar o seu uso.
      * 
-     * @param usuario
-     *            Usuário a ser excluído.
+     * @param id
+     *            Identificação do usuário a ser excluído.
      */
-    public void excluir(Usuario usuario) {
+    public void excluir(Long id) {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
 	EntityManager em = emf.createEntityManager();
 
-	Query query = em.createQuery("delete Usuario u where u.id = :id");
-	query.setParameter("id", usuario.getId());
-
 	em.getTransaction().begin();
-	query.executeUpdate();
+	Usuario usuario = em.getReference(Usuario.class, id);
+	em.remove(usuario);
 	em.getTransaction().commit();
 
 	em.close();
 	emf.close();
+    }
+
+    public Usuario obter(Long id) {
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
+	EntityManager em = emf.createEntityManager();
+
+	Usuario usuario = em.find(Usuario.class, id);
+
+	em.close();
+	emf.close();
+	return usuario;
+    }
+
+    public Usuario obterPorEmail(String email) {
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
+	EntityManager em = emf.createEntityManager();
+
+	Query query = em.createQuery("select u from Usuario u where u.email = :email");
+	query.setParameter("email", email);
+
+	Usuario usuario;
+	try {
+	    usuario = (Usuario) query.getSingleResult();
+	} catch (NoResultException cause) {
+	    usuario = null;
+	}
+
+	em.close();
+	emf.close();
+	return usuario;
     }
 
     /**

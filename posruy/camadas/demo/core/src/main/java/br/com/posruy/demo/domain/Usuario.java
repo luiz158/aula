@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.Email;
+
 /**
  * Objeto de transferência de dados utilizado para transportar informações do
  * usuário entre as camadas. É uma classe simples composta por atributos
@@ -39,6 +41,11 @@ public class Usuario {
      */
     private String nome;
 
+    @Email
+    private String email;
+
+    private String senha;
+
     /**
      * Representa o nao de nascimento do usuário.
      * 
@@ -65,5 +72,21 @@ public class Usuario {
 
     public Long getId() {
 	return id;
+    }
+
+    public void setEmail(String email) {
+	this.email = email;
+    }
+
+    public String getEmail() {
+	return email;
+    }
+
+    public void setSenha(String senha) {
+	this.senha = senha;
+    }
+
+    public String getSenha() {
+	return senha;
     }
 }
