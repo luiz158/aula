@@ -6,43 +6,20 @@
 	<groupId>br.com.posruy.dojo</groupId>
 	<artifactId>posruy</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<dependencies>
-		<!-- Dependência para a ersão mais recente do Hibernate -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.3.Final</version>
+			<groupId>br.com.posruy.demo</groupId>
+			<artifactId>demo-core</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<!-- Banco de dados estilo "tamburete de dados" que não precisa de servidor -->
 		<dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.10</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Apenas para os casos de teste -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>3.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-easymock</artifactId>
-			<version>1.4.8</version>
-			<scope>test</scope>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.0.3</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
