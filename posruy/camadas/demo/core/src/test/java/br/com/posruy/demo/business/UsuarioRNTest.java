@@ -8,15 +8,18 @@ import static org.easymock.EasyMock.replay;
 import static org.junit.Assert.fail;
 import static org.powermock.reflect.Whitebox.setInternalState;
 
+import java.util.Calendar;
+
 import org.junit.Test;
 
-import br.com.posruy.demo.business.UsuarioRN;
 import br.com.posruy.demo.domain.Usuario;
 import br.com.posruy.demo.exception.MenorDeIdadeException;
 import br.com.posruy.demo.exception.ValidacaoException;
 import br.com.posruy.demo.persistence.UsuarioDAO;
 
 public class UsuarioRNTest {
+
+    private static final int ANO_CORRENTE = Calendar.getInstance().get(Calendar.YEAR);
 
     @Test
     public void inserirUsuarioSemErro() throws Exception {
@@ -32,7 +35,7 @@ public class UsuarioRNTest {
 	replay(dao);
 
 	Usuario usuario = new Usuario();
-	usuario.setAnoNascimento(1900);
+	usuario.setAnoNascimento(ANO_CORRENTE - 18);
 
 	rn.inserir(usuario);
     }
@@ -43,7 +46,7 @@ public class UsuarioRNTest {
 	Usuario usuario;
 
 	usuario = new Usuario();
-	usuario.setAnoNascimento(2000);
+	usuario.setAnoNascimento(ANO_CORRENTE - 10);
 
 	try {
 	    rn.inserir(usuario);
