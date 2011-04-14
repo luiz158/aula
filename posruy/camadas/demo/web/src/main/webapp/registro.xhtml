@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template.xhtml">
+
+	<ui:define name="body">
+		<h:form id="form" prependId="false">
+			<h:panelGrid columns="3">
+				<h:outputLabel for="nome" value="Nome completo" />
+				<h:inputText id="nome" value="#{registroPage.dto.nome}" />
+				<h:message for="nome" />
+
+				<h:outputLabel for="email" value="E-mail" />
+				<h:inputText id="email" value="#{registroPage.dto.email}" />
+				<h:message for="email" />
+
+				<h:outputLabel for="senha" value="Senha" />
+				<h:inputSecret id="senha" value="#{registroPage.dto.senha}" />
+				<h:message for="senha" />
+
+				<h:outputLabel for="ano" value="Ano de nascimento" />
+				<h:inputText id="ano" value="#{registroPage.dto.anoNascimento}" />
+				<h:message for="ano" />
+			</h:panelGrid>
+
+			<h:commandButton value="save" action="#{registroPage.salvar}" />
+			<h:link outcome="/index.xhtml">Voltar</h:link>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

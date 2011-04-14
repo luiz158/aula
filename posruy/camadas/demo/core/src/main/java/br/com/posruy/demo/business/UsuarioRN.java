@@ -120,6 +120,12 @@ public class UsuarioRN {
     }
 
     public Usuario obterPorEmail(String email) {
-	return getDAO().obterPorEmail(email);
+	Usuario usuario = null;
+
+	if (email != null && !email.trim().isEmpty()) {
+	    usuario = getDAO().obterPorEmail(email);
+	}
+
+	return usuario;
     }
 }

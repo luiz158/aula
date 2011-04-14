@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import br.com.posruy.demo.domain.Usuario;
@@ -35,15 +34,13 @@ public class UsuarioDAO {
      *            Objeto a ser persistido.
      */
     public void inserir(Usuario usuario) {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
-	EntityManager em = emf.createEntityManager();
+	EntityManager em = EntityManagerProducer.create();
 
 	em.getTransaction().begin();
 	em.persist(usuario);
 	em.getTransaction().commit();
 
 	em.close();
-	emf.close();
     }
 
     /**
@@ -53,15 +50,13 @@ public class UsuarioDAO {
      *            Objeto a ser modificado.
      */
     public void alterar(Usuario usuario) {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
-	EntityManager em = emf.createEntityManager();
+	EntityManager em = EntityManagerProducer.create();
 
 	em.getTransaction().begin();
 	usuario = em.merge(usuario);
 	em.getTransaction().commit();
 
 	em.close();
-	emf.close();
     }
 
     /**
@@ -73,8 +68,7 @@ public class UsuarioDAO {
      *            Identificação do usuário a ser excluído.
      */
     public void excluir(Long id) {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
-	EntityManager em = emf.createEntityManager();
+	EntityManager em = EntityManagerProducer.create();
 
 	em.getTransaction().begin();
 	Usuario usuario = em.getReference(Usuario.class, id);
@@ -82,23 +76,19 @@ public class UsuarioDAO {
 	em.getTransaction().commit();
 
 	em.close();
-	emf.close();
     }
 
     public Usuario obter(Long id) {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
-	EntityManager em = emf.createEntityManager();
+	EntityManager em = EntityManagerProducer.create();
 
 	Usuario usuario = em.find(Usuario.class, id);
 
 	em.close();
-	emf.close();
 	return usuario;
     }
 
     public Usuario obterPorEmail(String email) {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
-	EntityManager em = emf.createEntityManager();
+	EntityManager em = EntityManagerProducer.create();
 
 	Query query = em.createQuery("select u from Usuario u where u.email = :email");
 	query.setParameter("email", email);
@@ -111,7 +101,6 @@ public class UsuarioDAO {
 	}
 
 	em.close();
-	emf.close();
 	return usuario;
     }
 
@@ -122,14 +111,12 @@ public class UsuarioDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Usuario> listar() {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco1");
-	EntityManager em = emf.createEntityManager();
+	EntityManager em = EntityManagerProducer.create();
 
 	Query query = em.createQuery("select u from Usuario u");
 	List<Usuario> list = query.getResultList();
 
 	em.close();
-	emf.close();
 	return list;
     }
 }

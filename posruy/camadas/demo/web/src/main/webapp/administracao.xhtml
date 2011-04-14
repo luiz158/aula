@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template.xhtml">
+
+	<ui:define name="body">
+
+		Usuários cadastrados:
+		<h:dataTable value="#{administracaoPage.usuarios}"
+			var="usuario">
+
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{usuario.id}" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{usuario.nome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">E-mail</f:facet>
+				#{usuario.email}
+			</h:column>
+		</h:dataTable>
+
+		<h:link outcome="/index.xhtml">Voltar</h:link>
+	</ui:define>
+
+</ui:composition>
