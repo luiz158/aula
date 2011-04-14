@@ -1,5 +1,6 @@
 package br.com.posruy.demo.business;
 
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.posruy.demo.domain.Usuario;
@@ -64,8 +65,8 @@ public class UsuarioRN {
      * @return É de maior ou não é?
      */
     private boolean maiorIdade(Usuario usuario) {
-	// int anoCorrente = Calendar.getInstance().get(Calendar.YEAR);
-	int anoCorrente = 2011;
+	int anoCorrente = Calendar.getInstance().get(Calendar.YEAR);
+	// int anoCorrente = 2011;
 	int anoNascimento = usuario.getAnoNascimento();
 
 	return (anoCorrente - anoNascimento) >= 18;
