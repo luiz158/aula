@@ -6,10 +6,16 @@
 
 	<ui:define name="body">
 	<h:form>
-	Nome:<h:inputText value="#{usuarioMB.dto.nome}" />
+	Nome:<h:inputText value="" />
 	<br/>
 	Ano de Nascimento:
-	<h:inputText value="#{usuarioMB.dto.anoNascimento}" />
+	<h:inputText value="" />
+	<br/>
+	E-mail:
+	<h:inputText value="" />
+	<br/>
+	Senha:
+	<h:inputSecret value="" />
 	<br/>
 	<h:commandButton action="#{usuarioMB.cadastrar}"  value="Cadastrar" />
 	</h:form>
